@@ -1,17 +1,20 @@
-# https://github.com/FreeOpcUa/opcua-asyncio/blob/master/examples/client-example.py
-import asyncio
-import sys
-# sys.path.insert(0, "..")
+import argparse
 import logging
-from asyncua import Client, Node, ua
+import asyncio
+from asyncua import Client
 
-# logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 _logger = logging.getLogger('asyncua')
+
+parser = argparse.ArgumentParser(description='Options for initializing client.')
+parser.add_argument('-p', '--port', help='Port number', type=str, default='4840')
+parser.add_argument('--ip', help='IP address', type=str, default='localhost')
+args = parser.parse_args()
 
 
 async def main():
     quit = False
-    url = 'opc.tcp://localhost:4840/freeopcua/server/'
+    url = f'opc.tcp://{args.ip}:{args.port}/'
     async with Client(url=url) as client:
         # Client has a few methods to get proxy to UA nodes that should always be in address space such as Root or Objects
         # Node objects have methods to read and write node attributes as well as browse or populate address space
@@ -25,6 +28,8 @@ async def main():
         print('-----------------------------------------------------------------------')
         print('Settings:')
         print(f'\turl: {url}')
+        print(f'\t\tIP: {args.ip}')
+        print(f'\t\tPort: {args.port}')
         print(f'\turi: {uri}')
         print(f'\tidx: {idx}')
         print(f'\tvar: {var}')
@@ -45,7 +50,6 @@ async def main():
                     print(result)
                 except Exception as e:
                     _logger.error(e)
-
 
 if __name__ == '__main__':
     asyncio.run(main())
