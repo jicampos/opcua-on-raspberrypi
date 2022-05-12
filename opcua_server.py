@@ -11,9 +11,10 @@ from serial_manager import SerialManager
 parser = argparse.ArgumentParser(description='Options for initializing server.')
 parser.add_argument('-p', '--port', help='Port number', type=str, default='4840')
 parser.add_argument('--ip', help='IP address', type=str, default='0.0.0.0')
+parser.add_argument('--serial-port', help='Path to serial port from root', type=str, default='/dev/ttyUSB1')
 args = parser.parse_args()
 
-serial = SerialManager()
+serial = SerialManager(port=args.serial_port)
 
 
 @uamethod

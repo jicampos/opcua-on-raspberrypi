@@ -829,3 +829,6 @@ data/
 # IDE files
 .idea 
 .vscode
+
+# virtual envs
+opcua-venv/
