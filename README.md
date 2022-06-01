@@ -21,6 +21,11 @@ python opcua_server.py --ip 0.0.0.0 --port 4840 --serial-port /dev/ttyUSB0
 ```
 
 #### Client
+Run command line interface
 ```
 python opcua_client.py --ip 0.0.0.0 --port 4840
+```
+Execute list of commands from input file
+```
+python opcua_client.py --ip 0.0.0.0 --port 4840 --file commands.txt
 ```
